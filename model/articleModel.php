@@ -212,3 +212,28 @@ function recupOneArticleByUsers(mysqli $db, int $idarticle, int $iduser){
         return false;
     }
 }
+
+// Update an barticle with its idarticle and idusers for redacteur, $_POST is an array ($datas)
+function updateOneArticleByUsers(mysqli $db, array $datas, int $idarticle, int $iduser){
+    $thetitle = htmlspecialchars(strip_tags(trim($datas['thetitle'])),ENT_QUOTES);
+    $thetext = htmlspecialchars(strip_tags(trim($datas['thetext'])),ENT_QUOTES);
+    $thedate = htmlspecialchars(strip_tags(trim($datas['thedate'])),ENT_QUOTES);
+    $idarticle = (int)$idarticle;
+    $iduser = (int)$iduser;
+    
+    // update
+    $sql = "UPDATE article SET thetitle='$thetitle',thetext='$thetext',thedate='$thedate',thevisibility=0 WHERE idarticle=$idarticle AND users_idusers = $iduser;";
+    
+    mysqli_query($db, $sql)or die(mysqli_error($db));
+    
+    // on supprime les anciennes clefs de jointures de article_has_rubrique pour cet article
+    $sql = "DELETE FROM article_has_rubrique WHERE article_idarticle=$idarticle";
+    mysqli_query($db, $sql)or die(mysqli_error($db));
+    
+    
+    // si une rubrique (au moins) est cochée
+    if(isset($datas['rubriques'])){
+        $sql = "INSERT INTO article_has_rubrique (article_idarticle,rubrique_idrubrique) VALUES ";
+    }
+    
+}

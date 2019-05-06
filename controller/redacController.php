@@ -70,20 +70,11 @@ if(isset($_GET['disconnect'])){
         // appel de la vue
         require_once "../view/redacUpdateView.php";
 
-
-        /*
-         *
-         * ICI ICI ICI
-         *
-         *
-         *
-         */
-
-
-
-
-
-
+    }else{
+        
+        
+        updateOneArticleByUsers($mysqli, $_POST, $idarticle, $_SESSION['idusers']);
+        header("Location: ./");
     }
 
 

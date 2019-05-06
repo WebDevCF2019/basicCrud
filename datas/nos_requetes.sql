@@ -158,3 +158,11 @@ SELECT users.idusers, users.thename, users.themail,
     INNER JOIN perm
 		ON perm.idperm = users.perm_idperm
     WHERE users.thelogin='Admin' AND users.thepwd='C1C224B03CD9BC7B6A86D77F5DACE40191766C485CD55DC48CAF9AC873335D6F';
+    
+# UPDATE updateOneArticleByUsers
+
+UPDATE  article SET thetitle='TEST',thetext='du blabla',thedate='2019-05-16 09:40:08',thevisibility=0 WHERE idarticle=3 AND users_idusers = 2;
+
+# DELETE m2m rubrique<->article
+DELETE FROM article_has_rubrique WHERE article_idarticle=3;
+  

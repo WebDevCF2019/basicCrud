@@ -41,10 +41,20 @@
         <input type="text" name="thedate" required value="<?=$recup_article['thedate']?>">
 
             <?php
+            // on récupère les 'idrubrique' de l'article avant update en transformant le tout en tableau grâce au séparateur , 
+            $tab_rub_article = explode(",", $recup_article['idrubrique']);
+            
+            // tant qu'on a des rubriques
             foreach($recup_rub AS $item) {
+                
+       
+                // condition ternaire pour cocher ou non les rubriques sélectionnées avant l'update
+    $check = (in_array($item['idrubrique'],$tab_rub_article))?"checked":"";
+                
+                
                 ?>
         <div class="form-check">
-                <input name="rubrique[]" class="form-check-input" type="checkbox" value="<?=$item['idrubrique']?>" id="defaultCheck">
+            <input name="rubrique[]" class="form-check-input" type="checkbox" value="<?=$item['idrubrique']?>" id="defaultCheck" <?=$check?>>
                 <label class="form-check-label" for="defaultCheck">
                     <?=$item['theintitule']?>
                 </label>
