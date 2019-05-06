@@ -165,4 +165,21 @@ UPDATE  article SET thetitle='TEST',thetext='du blabla',thedate='2019-05-16 09:4
 
 # DELETE m2m rubrique<->article
 DELETE FROM article_has_rubrique WHERE article_idarticle=3;
+
+
+# accueil de l'administration ADMIN
+SELECT a.idarticle, a.thetitle,LEFT(a.thetext,350) AS thetext, a.thedate, a.thevisibility,
+        u.thename,
+       GROUP_CONCAT(r.idrubrique ORDER BY r.theintitule) AS idrubrique, 
+       GROUP_CONCAT(r.theintitule ORDER BY r.theintitule SEPARATOR '|@|') AS theintitule
+	FROM article a
+        INNER JOIN users u
+		ON u.idusers = a.users_idusers
+    LEFT JOIN article_has_rubrique h
+		ON h.article_idarticle = a.idarticle
+    LEFT JOIN rubrique r
+		ON h.rubrique_idrubrique = r.idrubrique
+    GROUP BY a.idarticle
+    ORDER BY a.thedate DESC
+;
   
