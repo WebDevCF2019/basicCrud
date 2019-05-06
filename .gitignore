@@ -9,3 +9,6 @@ config.php
 
 # ignore bak from Workbench
 datas/basiccrud.mwb.bak
+
+# ignore netbeans
+nbproject/
