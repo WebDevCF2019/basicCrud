@@ -232,8 +232,13 @@ function updateOneArticleByUsers(mysqli $db, array $datas, int $idarticle, int $
     
     
     // si une rubrique (au moins) est cochée
-    if(isset($datas['rubriques'])){
+    if(isset($datas['rubrique'])){
         $sql = "INSERT INTO article_has_rubrique (article_idarticle,rubrique_idrubrique) VALUES ";
+        foreach ($datas['rubrique'] as $value) {
+            $sql .= " ($idarticle,$value),";
+        }
+        $sql = substr($sql, 0,-1);
+        mysqli_query($db, $sql)or die(mysqli_error($db));
     }
     
 }
