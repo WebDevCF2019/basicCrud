@@ -60,6 +60,18 @@ if (isset($_GET['disconnect'])) {
     // appel de la vue
     require_once "../view/adminUpdateView.php";
 
+// delete
+} elseif (isset($_GET['delete']) && ctype_digit($_GET['delete'])) {
+
+    $idarticle = (int) $_GET['delete'];
+    
+    $sup = deleteArticleAdmin($mysqli,$idarticle);
+    
+    if($sup){
+        header("Location: ./");
+        exit();
+    }
+
 
 // homepage
 } else {

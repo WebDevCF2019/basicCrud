@@ -11,7 +11,16 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <script>
+        function deleteArticle(ID){
+            let confirmation = confirm("Voulez-vous vraiment supprimer cet article?");
+            if(confirmation){
+                document.location = "?delete="+ID;
+            }else{
+                return false;
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -60,7 +69,7 @@
                         echo "Est publié";
                         }else{
                         echo "est en attente de publication";
-                        }?> | <a href="?update=<?= $itemArticle['idarticle'] ?>"><img src="img/update.png" alt="Modifier" title="Modifier"/></a> <a href="?delete=<?= $itemArticle['idarticle'] ?>"><img src="img/delete.png" alt="Suppression" title="Suppression"/></a> </h3>
+                        }?> | <a href="?update=<?= $itemArticle['idarticle'] ?>"><img src="img/update.png" alt="Modifier" title="Modifier"/></a> <a href="" onclick="deleteArticle(<?= $itemArticle['idarticle'] ?>);return false;"><img src="img/delete.png" alt="Suppression" title="Suppression"/></a> </h3>
                     <h4>Catégorie : <small><?php
                             if(empty($idrubrique)){
                                 ?>

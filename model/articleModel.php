@@ -379,3 +379,20 @@ function createArticleAdmin(mysqli $db, array $datas){
     }
     return true;
 }
+
+// suppression d'article par son id
+
+function deleteArticleAdmin(mysqli $db, $idarticle){
+    $idarticle = (int) $idarticle;
+    
+    // inutile en cas de ON DELETE CASCADE dans article_has_rubrique
+    $sql = "DELETE FROM article_has_rubrique WHERE article_idarticle=$idarticle";
+    
+    mysqli_query($db,$sql);
+    
+    $sql = "DELETE FROM article WHERE idarticle=$idarticle";
+    
+    $recup = mysqli_query($db,$sql);
+    
+    return true;
+}
