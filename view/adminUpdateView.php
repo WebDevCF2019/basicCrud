@@ -28,6 +28,13 @@
             <p class="lead">Mise à jour de <?=$recup_article['thetitle']?></p>
         </div>
     </div>
+    <?php
+    if(isset($_GET['valid'])){
+    ?>
+    <h3 class='alert-info'>Article modifié</h3>
+    <?php
+    }
+    ?>
     <form action="" method="post" name="create">
         <div class="form-group">
             <label for="exampleInputEmail1">Le titre</label>

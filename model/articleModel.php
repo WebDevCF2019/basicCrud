@@ -337,5 +337,6 @@ function updateOneArticleByAdmin(mysqli $db, array $datas, int $idarticle){
         $sql = substr($sql, 0,-1);
         mysqli_query($db, $sql)or die(mysqli_error($db));
     }
+    return true;
     
 }

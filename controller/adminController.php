@@ -32,9 +32,13 @@ if (isset($_GET['disconnect'])) {
         // récupération du détail de l'article
         $recup_article = recupOneArticleByAdmin($mysqli, $idarticle);
     }else{
-        echo "<pre>";
-        var_dump($_POST);
-        echo "</pre>";
+        $verif = updateOneArticleByAdmin($mysqli,$_POST,$idarticle);
+        // si il n'y a pas eu d'erreurs
+        if($verif) {
+            header("Location: ./?update=$idarticle&valid");
+            exit();
+        }
+        
     }
 
     // appel de la vue
