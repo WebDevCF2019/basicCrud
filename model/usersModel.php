@@ -61,3 +61,28 @@ function disconnect(){
     // retour à l'accueil
     header("Location: ./");
 }
+
+/*
+ * 
+ * Recup all users for admin update and insert
+ * 
+ */
+
+function listUsers(mysqli $db){
+    
+    $sql="SELECT idusers, thelogin, thename
+            FROM users
+           ORDER BY thename ASC";
+
+    $req = mysqli_query($db,$sql);
+
+    // on a au moins un résultat
+    if(mysqli_num_rows($req)){
+        
+        return mysqli_fetch_all($req,MYSQLI_ASSOC);
+        
+    }else{
+        return false;
+    }
+    
+}

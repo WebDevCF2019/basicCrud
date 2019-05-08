@@ -278,3 +278,64 @@ function recupArticleAdmin(mysqli $db){
     }
 
 }
+
+// recuparation one article by idarticle for Admin
+
+function recupOneArticleByAdmin(mysqli $db, int $idarticle){
+    $idarticle = (int) $idarticle;
+    $sql="SELECT a.thetitle, a.thetext, a.thedate, a.thevisibility,
+	   u.idusers, u.thename,
+       GROUP_CONCAT(r.idrubrique ORDER BY r.theintitule) AS idrubrique, 
+       GROUP_CONCAT(r.theintitule ORDER BY r.theintitule SEPARATOR '|@|') AS theintitule
+	FROM article a
+    INNER JOIN users u
+		ON u.idusers = a.users_idusers
+    LEFT JOIN article_has_rubrique h
+		ON h.article_idarticle = a.idarticle
+    LEFT JOIN rubrique r
+		ON h.rubrique_idrubrique = r.idrubrique
+	WHERE  a.idarticle=$idarticle
+    GROUP BY a.idarticle
+    ORDER BY a.thedate DESC
+;";
+    $recup = mysqli_query($db,$sql);
+
+    if(mysqli_num_rows($recup)){
+        return mysqli_fetch_assoc($recup);
+    }else{
+        return false;
+    }
+}
+
+
+// Update an barticle with its idarticle and idusers for redacteur, $_POST is an array ($datas)
+function updateOneArticleByAdmin(mysqli $db, array $datas, int $idarticle){
+    $thetitle = htmlspecialchars(strip_tags(trim($datas['thetitle'])),ENT_QUOTES);
+    $thetext = htmlspecialchars(strip_tags(trim($datas['thetext'])),ENT_QUOTES);
+    $thedate = htmlspecialchars(strip_tags(trim($datas['thedate'])),ENT_QUOTES);
+    $users_idusers = (int) $datas['idusers'];
+    $visibility = (int) $datas['thevisibility'];
+    $idarticle = (int) $idarticle;
+
+    
+    // update
+    $sql = "UPDATE article SET thetitle='$thetitle',thetext='$thetext' , thedate='$thedate', users_idusers = $users_idusers, thevisibility=$visibility WHERE idarticle=$idarticle  ;";
+    
+    mysqli_query($db, $sql)or die(mysqli_error($db));
+    
+    // on supprime les anciennes clefs de jointures de article_has_rubrique pour cet article
+    $sql = "DELETE FROM article_has_rubrique WHERE article_idarticle=$idarticle";
+    mysqli_query($db, $sql)or die(mysqli_error($db));
+    
+    
+    // si une rubrique (au moins) est cochée
+    if(isset($datas['rubrique'])){
+        $sql = "INSERT INTO article_has_rubrique (article_idarticle,rubrique_idrubrique) VALUES ";
+        foreach ($datas['rubrique'] as $value) {
+            $sql .= " ($idarticle,$value),";
+        }
+        $sql = substr($sql, 0,-1);
+        mysqli_query($db, $sql)or die(mysqli_error($db));
+    }
+    
+}

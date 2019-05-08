@@ -60,7 +60,7 @@
                         echo "Est publié";
                         }else{
                         echo "est en attente de publication";
-                        }?> | <a href="?update=<?= $itemArticle['idarticle'] ?>"><img src="img/update.png" alt="Modifier" title="Modifier"/></a> </h3>
+                        }?> | <a href="?update=<?= $itemArticle['idarticle'] ?>"><img src="img/update.png" alt="Modifier" title="Modifier"/></a> <a href="?delete=<?= $itemArticle['idarticle'] ?>"><img src="img/delete.png" alt="Suppression" title="Suppression"/></a> </h3>
                     <h4>Catégorie : <small><?php
                             if(empty($idrubrique)){
                                 ?>
