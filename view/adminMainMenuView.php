@@ -12,8 +12,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="?create">Create</a>
-                </li><li class="nav-item">
-                    <a class="nav-link" href="?validate">Validate</a>
                 </li>
                 
                 <li class="nav-item">

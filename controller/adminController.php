@@ -14,6 +14,22 @@ if (isset($_GET['disconnect'])) {
 // create    
 } elseif (isset($_GET['create'])) {
 
+    if (empty($_POST)) {
+        // récupération de toutes les rubriques
+        $recup_rub = recupCategMenu($mysqli);
+
+        // récupération de tous les utilisateurs
+        $recup_users = listUsers($mysqli);
+        
+        // appel de la vue
+        require_once "../view/adminCreateView.php";
+    }else{
+        $ok = createArticleAdmin($mysqli,$_POST);
+        if($ok){
+            header("Location: ./");
+            exit();
+        }
+    }
 
 // update
 } elseif (isset($_GET['update']) && ctype_digit($_GET['update'])) {

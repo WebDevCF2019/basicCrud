@@ -154,6 +154,7 @@ function createArticleRedac(mysqli $db, int $id, string $thetitle, string $text,
     $id = (int) $id;
     $thetitle = htmlspecialchars(strip_tags(trim($thetitle)),ENT_QUOTES);
     $text = htmlspecialchars(strip_tags(trim($text)),ENT_QUOTES);
+    // A REGLER
     $date = date("Y-m-d H:i:s",time());
     $sql = "INSERT INTO article (thetitle,thetext,thedate,users_idusers) VALUES ('$thetitle','$text','$date',$id)";
     // insertion de l'article dans la DB
@@ -339,4 +340,42 @@ function updateOneArticleByAdmin(mysqli $db, array $datas, int $idarticle){
     }
     return true;
     
+}
+
+function createArticleAdmin(mysqli $db, array $datas){
+    $idusers = (int) $datas['idusers'];
+    $thevisibility = (int) $datas['thevisibility'];
+    $thetitle = htmlspecialchars(strip_tags(trim($datas['thetitle'])),ENT_QUOTES);
+    $text = htmlspecialchars(strip_tags(trim($datas['thetext'])),ENT_QUOTES);
+    // A REGLER
+    $date = date("Y-m-d H:i:s",time());
+    
+    $sql = "INSERT INTO article (thetitle,thetext,thedate,thevisibility,users_idusers) VALUES ('$thetitle','$text','$date',$thevisibility,$idusers)";
+    // insertion de l'article dans la DB
+    $insert = mysqli_query($db,$sql)or die(false);
+
+    // si on a coché des rubriques
+    if(isset($datas['rubrique'])){
+        // on récupère l'id de la dernière insertion (de l'article) avec mysqli_insert_id
+        $idarticle = mysqli_insert_id($db);
+
+
+        // préparation de la requête avant la boucle
+        $sql = "INSERT INTO article_has_rubrique (article_idarticle,rubrique_idrubrique) VALUES ";
+
+        // tant qu'on a des articles
+        foreach ($datas['rubrique'] AS $categ){
+            $categ = (int) $categ;
+            // concaténation de la requête dans la boucle
+            $sql .= " ($idarticle,$categ),";
+
+        }
+
+        // on retire la dernière virgule pour avoir une requête sql valide
+        $sql = substr($sql,0,-1);
+
+        // insertion des rubriques dans article_has_rubrique avec un seul INSERT
+        mysqli_query($db,$sql)or die(false);
+    }
+    return true;
 }
