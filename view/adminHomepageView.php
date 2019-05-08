@@ -24,8 +24,8 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12 text-center">
-            <h1 class="mt-5">basicCrud Rédacteur Homepage</h1>
-            <p class="lead">Liste de vos articles de notre site</p>
+            <h1 class="mt-5">basicCrud Administrateur Homepage</h1>
+            <p class="lead">Liste de tous les articles du site</p>
         </div>
     </div>
 
@@ -38,7 +38,7 @@
             <div class="col-lg-12 text-center">
                 <hr>
                 <h2>Pas encore d'articles</h2>
-                <h3>Vous n'avez pas encore écris d'article</h3>
+                <h3>Il n'y a pas encore d'articles sur le site</h3>
                 <hr>
             </div>
         </div>

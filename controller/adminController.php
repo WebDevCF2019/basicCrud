@@ -19,7 +19,7 @@ if(isset($_GET['disconnect'])){
      // articles récuparation
     $articles = recupArticleAdmin($mysqli);
 
-
+    
 
     require_once "../view/adminHomepageView.php";
     
