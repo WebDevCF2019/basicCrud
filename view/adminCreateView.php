@@ -11,6 +11,9 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+    
+</body>
 
 </head>
 <body>
@@ -38,7 +41,15 @@
             <label for="exampleFormControlTextarea1">Votre texte</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" name="thetext" rows="3" required></textarea>
         </div>
-        <input type="datetime-local" name="thedate" required>
+         <div class="form-group">
+                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                    <input name="thedate" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+
+    </div>
 
             <?php
             foreach($recup_rub AS $item) {
@@ -75,12 +86,26 @@
 </div>
 
         <input type="submit" class="btn btn-primary" value="Envoyer">
+        
+        
+           
+        
+        
     </form>
 
 </div>
 
+
 <!-- Bootstrap core JavaScript -->
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
-</body>
+<script src="js/moment.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />    
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+            });
+        </script>
+
 </html>

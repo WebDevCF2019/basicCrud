@@ -150,12 +150,12 @@ function recupArticleRedac(mysqli $db, int $idusers){
 
 
 
-function createArticleRedac(mysqli $db, int $id, string $thetitle, string $text, string $date, array $rubrique){
+function createArticleRedac(mysqli $db, int $id, string $thetitle, string $text, string $datef, array $rubrique){
     $id = (int) $id;
     $thetitle = htmlspecialchars(strip_tags(trim($thetitle)),ENT_QUOTES);
     $text = htmlspecialchars(strip_tags(trim($text)),ENT_QUOTES);
-    // A REGLER
-    $date = date("Y-m-d H:i:s",time());
+    $pdate = strtotime($datef);
+    $date = date("Y-m-d H:i:s",$pdate);
     $sql = "INSERT INTO article (thetitle,thetext,thedate,users_idusers) VALUES ('$thetitle','$text','$date',$id)";
     // insertion de l'article dans la DB
     $insert = mysqli_query($db,$sql)or die(false);
@@ -347,8 +347,8 @@ function createArticleAdmin(mysqli $db, array $datas){
     $thevisibility = (int) $datas['thevisibility'];
     $thetitle = htmlspecialchars(strip_tags(trim($datas['thetitle'])),ENT_QUOTES);
     $text = htmlspecialchars(strip_tags(trim($datas['thetext'])),ENT_QUOTES);
-    // A REGLER
-    $date = date("Y-m-d H:i:s",time());
+    $pdate = strtotime($datas['thedate']);
+    $date = date("Y-m-d H:i:s",$pdate);
     
     $sql = "INSERT INTO article (thetitle,thetext,thedate,thevisibility,users_idusers) VALUES ('$thetitle','$text','$date',$thevisibility,$idusers)";
     // insertion de l'article dans la DB
